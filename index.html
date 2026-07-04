@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>🚀 NeoCloud</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background: #0a0a1a;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 16px;
+            background-image:
+                radial-gradient(ellipse at 50% 0%, rgba(0, 255, 255, 0.08), transparent 70%),
+                radial-gradient(ellipse at 0% 100%, rgba(150, 0, 255, 0.06), transparent 60%),
+                radial-gradient(ellipse at 100% 100%, rgba(0, 255, 200, 0.05), transparent 60%);
+        }
+
+        .container {
+            max-width: 480px;
+            width: 100%;
+            background: rgba(16, 16, 35, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-radius: 28px;
+            padding: 28px 22px;
+            border: 1px solid rgba(0, 255, 255, 0.15);
+            box-shadow: 0 0 40px rgba(0, 255, 255, 0.06), inset 0 0 60px rgba(0, 255, 255, 0.02);
+            transition: all 0.3s ease;
+        }
+
+        .logo {
+            text-align: center;
+            font-size: 28px;
+            font-weight: 800;
+            background: linear-gradient(135deg, #00ffe0, #7b2ffc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: 1px;
+            margin-bottom: 6px;
+            text-shadow: 0 0 40px rgba(0, 255, 255, 0.15);
+        }
+
+        .subtitle {
+            text-align: center;
+            color: rgba(255, 255, 255, 0.35);
+            font-size: 13px;
+            font-weight: 300;
+            letter-spacing: 2px;
+            margin-bottom: 24px;
+        }
+
+        h1 {
+            font-size: 22px;
+            font-weight: 700;
+            color: #fff;
+            text-align: center;
+            margin-bottom: 20px;
+            letter-spacing: 0.5px;
+        }
+
+        .form-group {
+            margin-bottom: 14px;
+        }
+
+        .form-group label {
+            display: block;
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 5px;
+        }
+
+        input[type="text"],
+        input[type="password"],
+        input[type="file"] {
+            width: 100%;
+            padding: 14px 16px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 14px;
+            color: #fff;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            outline: none;
+        }
+
+        input[type="text"]:focus,
+        input[type="password"]:focus {
+            border-color: rgba(0, 255, 255, 0.4);
+            box-shadow: 0 0 25px rgba(0, 255, 255, 0.06), inset 0 0 25px rgba(0, 255, 255, 0.02);
+            background: rgba(255, 255, 255, 0.06);
+        }
+
+        input[type="text"]::placeholder,
+        input[type="password"]::placeholder {
+            color: rgba(255, 255, 255, 0.2);
+        }
+
+        input[type="file"] {
+            padding: 12px;
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 14px;
+        }
+
+        input[type="file"]::file-selector-button {
+            background: rgba(0, 255, 255, 0.08);
+            border: 1px solid rgba(0, 255, 255, 0.15);
+            border-radius: 10px;
+            padding: 8px 16px;
+            color: #00ffe0;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-right: 12px;
+        }
+
+        input[type="file"]::file-selector-button:hover {
+            background: rgba(0, 255, 255, 0.15);
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.05);
+        }
+
+        .btn {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 14px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            letter-spacing: 0.5px;
+            position: relative;
+            overflow: hidden;
+            background: rgba(255, 255, 255, 0.05);
+            color: #fff;
+        }
+
+        .btn::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.05), transparent 60%);
+            opacity: 0;
+            transition: opacity 0.4s;
+        }
+
+        .btn:active::after {
+            opacity: 1;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #00d4ff, #7b2ffc);
+            color: #fff;
+            box-shadow: 0 4px 25px rgba(0, 212, 255, 0.2);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 40px rgba(0, 212, 255, 0.3);
+        }
+
+        .btn-primary:active {
+            transform: scale(0.97);
+        }
+
+        .btn-success {
+            background: linear-gradient(135deg, #00f5a0, #00d9f5);
+            color: #0a0a1a;
+            box-shadow: 0 4px 25px rgba(0, 245, 160, 0.15);
+        }
+
+        .btn-success:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 40px rgba(0, 245, 160, 0.25);
+        }
+
+        .btn-success:active {
+            transform: scale(0.97);
+        }
+
+        .btn-danger {
+            background: linear-gradient(135deg, #ff416c, #ff4b2b);
+            color: #fff;
+            box-shadow: 0 4px 25px rgba(255, 65, 108, 0.15);
+        }
+
+        .btn-danger:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 40px rgba(255, 65, 108, 0.25);
+        }
+
+        .btn-danger:active {
+            transform: scale(0.97);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .btn-outline:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+
+        .btn-sm {
+            padding: 8px 14px;
+            font-size: 13px;
+            width: auto;
+            border-radius: 10px;
+        }
+
+        .auth-links {
+            text-align: center;
+            margin-top: 16px;
+            color: rgba(255, 255, 255, 0.3);
+            font-size: 14px;
+        }
+
+        .auth-links a {
+            color: #00d4ff;
+            cursor: pointer;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+
+        .auth-links a:hover {
+            color: #7b2ffc;
+        }
+
+        .message {
+            padding: 12px 16px;
+            border-radius: 12px;
+            margin-top: 14px;
+            text-align: center;
+            font-size: 14px;
+            font-weight: 500;
+            backdrop-filter: blur(10px);
+        }
+
+        .message.error {
+            background: rgba(255, 65, 108, 0.12);
+            border: 1px solid rgba(255, 65, 108, 0.2);
+            color: #ff6b8a;
+        }
+
+        .message.success {
+            background: rgba(0, 245, 160, 0.08);
+            border: 1px solid rgba(0, 245, 160, 0.15);
+            color: #00f5a0;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .user-info {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 14px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .user-info .badge {
+            background: rgba(0, 255, 255, 0.1);
+            padding: 2px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            color: #00d4ff;
+            border: 1px solid rgba(0, 255, 255, 0.1);
+        }
+
+        .upload-area {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 16px;
+            flex-wrap: wrap;
+        }
+
+        .upload-area input[type="file"] {
+            flex: 1;
+            min-width: 120px;
+        }
+
+        .upload-area .btn {
+            width: auto;
+            padding: 14px 24px;
+            flex-shrink: 0;
+        }
+
+        .file-list {
+            margin-top: 8px;
+        }
+
+        .file-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 14px 16px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            border-radius: 14px;
+            margin-bottom: 8px;
+            transition: all 0.3s ease;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .file-item:hover {
+            background: rgba(255, 255, 255, 0.06);
+            border-color: rgba(0, 255, 255, 0.06);
+            transform: translateX(4px);
+        }
+
+        .file-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            flex: 1;
+            min-width: 100px;
+        }
+
+        .file-icon {
+            font-size: 20px;
+            opacity: 0.6;
+        }
+
+        .file-name {
+            color: rgba(255, 255, 255, 0.85);
+            font-weight: 500;
+            font-size: 14px;
+            word-break: break-all;
+        }
+
+        .file-size {
+            color: rgba(255, 255, 255, 0.25);
+            font-size: 12px;
+            font-weight: 400;
+            background: rgba(255, 255, 255, 0.04);
+            padding: 2px 10px;
+            border-radius: 20px;
+        }
+
+        .file-actions {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+        }
+
+        .file-actions .btn {
+            padding: 6px 14px;
+            font-size: 13px;
+            width: auto;
+            border-radius: 10px;
+        }
+
+        .btn-download {
+            background: rgba(0, 212, 255, 0.1);
+            color: #00d4ff;
+            border: 1px solid rgba(0, 212, 255, 0.1);
+        }
+
+        .btn-download:hover {
+            background: rgba(0, 212, 255, 0.2);
+            border-color: rgba(0, 212, 255, 0.3);
+        }
+
+        .btn-delete {
+            background: rgba(255, 65, 108, 0.08);
+            color: #ff416c;
+            border: 1px solid rgba(255, 65, 108, 0.1);
+        }
+
+        .btn-delete:hover {
+            background: rgba(255, 65, 108, 0.18);
+            border-color: rgba(255, 65, 108, 0.2);
+        }
+
+        .empty {
+            text-align: center;
+            color: rgba(255, 255, 255, 0.15);
+            padding: 40px 0;
+            font-size: 15px;
+            letter-spacing: 1px;
+        }
+
+        .empty .big-icon {
+            font-size: 48px;
+            display: block;
+            margin-bottom: 12px;
+            opacity: 0.4;
+        }
+
+        .glitch-line {
+            height: 1px;
+            width: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 255, 255, 0.1), transparent);
+            margin: 16px 0;
+        }
+
+        .fade-in {
+            animation: fadeIn 0.4s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 10px;
+            }
+
+            .container {
+                padding: 20px 16px;
+                border-radius: 20px;
+            }
+
+            .logo {
+                font-size: 22px;
+            }
+
+            .upload-area {
+                flex-direction: column;
+            }
+
+            .upload-area input[type="file"] {
+                width: 100%;
+            }
+
+            .upload-area .btn {
+                width: 100%;
+            }
+
+            .file-item {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .file-actions {
+                justify-content: center;
+            }
+
+            .file-actions .btn {
+                flex: 1;
+                text-align: center;
+            }
+
+            .header {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .header .btn {
+                width: 100%;
+                text-align: center;
+            }
+
+            .user-info {
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 380px) {
+            .container {
+                padding: 14px 12px;
+            }
+
+            .logo {
+                font-size: 18px;
+            }
+
+            .file-item {
+                padding: 10px 12px;
+            }
+
+            .file-name {
+                font-size: 13px;
+            }
+        }
+
+        ::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: rgba(0, 255, 255, 0.15);
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(0, 255, 255, 0.25);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container fade-in" id="app">
+        <div class="logo">✦ NeoCloud</div>
+        <div class="subtitle">SECURE • STORAGE • SYNC</div>
+        <div class="glitch-line"></div>
+
+        <!-- ===== АВТОРИЗАЦИЯ ===== -->
+        <div id="authSection">
+            <div id="loginForm">
+                <h1>🔐 Вход</h1>
+                <div class="form-group">
+                    <label>👤 Логин</label>
+                    <input type="text" id="loginLogin" placeholder="Введите логин">
+                </div>
+                <div class="form-group">
+                    <label>🔑 Пароль</label>
+                    <input type="password" id="loginPassword" placeholder="Введите пароль">
+                </div>
+                <button class="btn btn-primary" onclick="login()">Войти</button>
+                <div class="auth-links">
+                    Нет аккаунта? <a onclick="showRegister()">Создать</a>
+                </div>
+                <div id="authMessage"></div>
+            </div>
+
+            <div id="registerForm" class="hidden">
+                <h1>✨ Регистрация</h1>
+                <div class="form-group">
+                    <label>👤 Логин</label>
+                    <input type="text" id="registerLogin" placeholder="Придумайте логин">
+                </div>
+                <div class="form-group">
+                    <label>🔑 Пароль</label>
+                    <input type="password" id="registerPassword" placeholder="Придумайте пароль">
+                </div>
+                <button class="btn btn-success" onclick="register()">Создать аккаунт</button>
+                <div class="auth-links">
+                    Уже есть аккаунт? <a onclick="showLogin()">Войти</a>
+                </div>
+                <div id="registerMessage"></div>
+            </div>
+        </div>
+
+        <!-- ===== ДАШБОРД ===== -->
+        <div id="dashboardSection" class="hidden">
+            <div class="header">
+                <div class="user-info">
+                    👤 <span id="currentUser"></span>
+                    <span class="badge">online</span>
+                </div>
+                <button class="btn btn-outline btn-sm" onclick="logout()">🚪 Выйти</button>
+            </div>
+
+            <div class="upload-area">
+                <input type="file" id="fileInput">
+                <button class="btn btn-success" onclick="uploadFile()">📤 Загрузить</button>
+            </div>
+
+            <div id="uploadMessage"></div>
+
+            <div class="glitch-line"></div>
+
+            <div class="file-list" id="fileList">
+                <div class="empty">
+                    <span class="big-icon">☁️</span>
+                    Файлов пока нет
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ==================== СОСТОЯНИЕ ====================
+        let currentUser = localStorage.getItem('user') || null;
+
+        // ==================== ИНИЦИАЛИЗАЦИЯ ====================
+        document.addEventListener('DOMContentLoaded', () => {
+            if (currentUser) {
+                showDashboard();
+            } else {
+                showLogin();
+            }
+        });
+
+        // ==================== ПЕРЕКЛЮЧЕНИЕ ФОРМ ====================
+        function showLogin() {
+            document.getElementById('loginForm').classList.remove('hidden');
+            document.getElementById('registerForm').classList.add('hidden');
+            document.getElementById('authMessage').textContent = '';
+        }
+
+        function showRegister() {
+            document.getElementById('loginForm').classList.add('hidden');
+            document.getElementById('registerForm').classList.remove('hidden');
+            document.getElementById('registerMessage').textContent = '';
+        }
+
+        function showDashboard() {
+            document.getElementById('authSection').classList.add('hidden');
+            document.getElementById('dashboardSection').classList.remove('hidden');
+            document.getElementById('currentUser').textContent = currentUser;
+            loadFiles();
+        }
+
+        function showAuth() {
+            document.getElementById('authSection').classList.remove('hidden');
+            document.getElementById('dashboardSection').classList.add('hidden');
+            showLogin();
+        }
+
+        // ==================== СООБЩЕНИЯ ====================
+        function showMessage(elementId, text, type) {
+            const el = document.getElementById(elementId);
+            el.textContent = text;
+            el.className = 'message ' + type;
+        }
+
+        // ==================== ВХОД ====================
+        async function login() {
+            const login = document.getElementById('loginLogin').value.trim();
+            const password = document.getElementById('loginPassword').value.trim();
+
+            if (!login || !password) {
+                showMessage('authMessage', '⛔ Заполните все поля', 'error');
+                return;
+            }
+
+            try {
+                const res = await fetch('/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ login, password })
+                });
+
+                const data = await res.json();
+
+                if (data.status === 'ok') {
+                    currentUser = login;
+                    localStorage.setItem('user', login);
+                    showMessage('authMessage', '✅ Вход выполнен', 'success');
+                    setTimeout(() => showDashboard(), 400);
+                } else {
+                    showMessage('authMessage', '❌ ' + (data.status || 'Неверный логин или пароль'), 'error');
+                }
+            } catch (e) {
+                showMessage('authMessage', '❌ Ошибка сервера', 'error');
+            }
+        }
+
+        // ==================== РЕГИСТРАЦИЯ ====================
+        async function register() {
+            const login = document.getElementById('registerLogin').value.trim();
+            const password = document.getElementById('registerPassword').value.trim();
+
+            if (!login || !password) {
+                showMessage('registerMessage', '⛔ Заполните все поля', 'error');
+                return;
+            }
+
+            try {
+                const res = await fetch('/register', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ login, password })
+                });
+
+                const data = await res.json();
+
+                if (data.status === 'ok') {
+                    showMessage('registerMessage', '✅ Аккаунт создан! Войдите.', 'success');
+                    setTimeout(() => {
+                        showLogin();
+                        document.getElementById('loginLogin').value = login;
+                    }, 1200);
+                } else {
+                    showMessage('registerMessage', '❌ ' + (data.status || 'Ошибка регистрации'), 'error');
+                }
+            } catch (e) {
+                showMessage('registerMessage', '❌ Ошибка сервера', 'error');
+            }
+        }
+
+        // ==================== ВЫХОД ====================
+        function logout() {
+            localStorage.removeItem('user');
+            currentUser = null;
+            showAuth();
+        }
+
+        // ==================== ЗАГРУЗКА ФАЙЛОВ ====================
+        async function loadFiles() {
+            try {
+                const res = await fetch('/files');
+                const data = await res.json();
+
+                const container = document.getElementById('fileList');
+
+                if (!data.files || data.files.length === 0) {
+                    container.innerHTML = `
+                        <div class="empty">
+                            <span class="big-icon">☁️</span>
+                            Файлов пока нет
+                        </div>
+                    `;
+                    return;
+                }
+
+                container.innerHTML = data.files.map(file => `
+                    <div class="file-item fade-in">
+                        <div class="file-info">
+                            <span class="file-icon">📄</span>
+                            <span class="file-name">${file.name}</span>
+                            <span class="file-size">${file.size} MB</span>
+                        </div>
+                        <div class="file-actions">
+                            <button class="btn btn-download btn-sm" onclick="downloadFile('${file.name}')">⬇</button>
+                            <button class="btn btn-delete btn-sm" onclick="deleteFile('${file.name}')">🗑</button>
+                        </div>
+                    </div>
+                `).join('');
+            } catch (e) {
+                document.getElementById('fileList').innerHTML = `
+                    <div class="empty">
+                        <span class="big-icon">⚠️</span>
+                        Ошибка загрузки файлов
+                    </div>
+                `;
+            }
+        }
+
+        // ==================== ЗАГРУЗКА ФАЙЛА ====================
+        async function uploadFile() {
+            const input = document.getElementById('fileInput');
+            const file = input.files[0];
+
+            if (!file) {
+                showMessage('uploadMessage', '⛔ Выберите файл', 'error');
+                return;
+            }
+
+            const formData = new FormData();
+            formData.append('file', file);
+
+            try {
+                const res = await fetch('/upload', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                const data = await res.json();
+
+                if (data.status === 'ok') {
+                    showMessage('uploadMessage', `✅ Файл "${data.filename}" загружен`, 'success');
+                    input.value = '';
+                    loadFiles();
+                } else {
+                    showMessage('uploadMessage', '❌ Ошибка загрузки', 'error');
+                }
+            } catch (e) {
+                showMessage('uploadMessage', '❌ Ошибка сервера', 'error');
+            }
+        }
+
+        // ==================== СКАЧИВАНИЕ ====================
+        function downloadFile(filename) {
+            window.open(`/download/${filename}`);
+        }
+
+        // ==================== УДАЛЕНИЕ ====================
+        async function deleteFile(filename) {
+            if (!confirm(`Удалить файл "${filename}"?`)) return;
+
+            try {
+                const res = await fetch(`/delete/${filename}`, {
+                    method: 'DELETE'
+                });
+
+                const data = await res.json();
+
+                if (data.status && data.status.includes('deleted')) {
+                    loadFiles();
+                } else {
+                    alert('❌ Ошибка удаления');
+                }
+            } catch (e) {
+                alert('❌ Ошибка сервера');
+            }
+        }
+    </script>
+
+</body>
+</html>
+
